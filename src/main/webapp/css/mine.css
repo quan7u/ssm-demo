@@ -1,0 +1,37 @@
+.body .a {
+    color: #333;
+}
+
+.leftbox {
+    position: absolute;
+    margin: 40px;
+}
+
+.rightbox {
+    margin-left: 210px;
+    margin-top: 30px;
+    height: 200px;
+    width: 63%;
+}
+
+.container {
+    width: 500px;
+}
+
+.leftweibo {
+    -webkit-box-flex: 1;
+}
+
+.rightweibo {
+    margin-left: 10px;
+    -webkit-box-flex: 1;
+}
+
+
+.btn-group .button {
+    width: 100%;
+}
+
+.container .row {
+    width:800px;
+}

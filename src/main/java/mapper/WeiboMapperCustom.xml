@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.WeiboMapperCustom">
+	<resultMap id="WeiboResultMap" type="po.WeiboCustom">
+		<id column="weibo_id" property="weiboId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="post_time" property="postTime" jdbcType="TIMESTAMP" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="pic1" property="pic1" jdbcType="VARCHAR" />
+		<result column="pic2" property="pic2" jdbcType="VARCHAR" />
+		<result column="pic3" property="pic3" jdbcType="VARCHAR" />
+		<result column="pic4" property="pic4" jdbcType="VARCHAR" />
+		<result column="pic5" property="pic5" jdbcType="VARCHAR" />
+		<result column="pic6" property="pic6" jdbcType="VARCHAR" />
+		<result column="pic7" property="pic7" jdbcType="VARCHAR" />
+		<result column="pic8" property="pic8" jdbcType="VARCHAR" />
+		<result column="pic9" property="pic9" jdbcType="VARCHAR" />
+		<result column="original" property="original" jdbcType="INTEGER" />
+    	<result column="repost_id" property="repostId" jdbcType="INTEGER" />
+
+		<association property="user" javaType="po.User">
+			<id column="user_id" property="userId" jdbcType="INTEGER" />
+			<result column="username" property="username" jdbcType="VARCHAR" />
+			<result column="password" property="password" jdbcType="VARCHAR" />
+			<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+			<result column="face" property="face" jdbcType="VARCHAR" />
+			<result column="sex" property="sex" jdbcType="INTEGER" />
+			<result column="bir" property="bir" jdbcType="DATE" />
+			<result column="province" property="province" jdbcType="VARCHAR" />
+			<result column="city" property="city" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+	
+	<!-- 实时——所有人 -->
+	<select id="queryAllWeiboNow" resultMap="WeiboResultMap">
+		SELECT user.nickname,user.face,weibo.* 
+		FROM weibo,USER
+		<where>
+			and weibo.user_id=user.user_id ORDER BY post_time DESC
+		</where>
+	</select>
+	
+	<!-- 好友圈——相互关注 -->
+	<select id="queryAllWeiboFriends" parameterType="int" resultMap="WeiboResultMap">
+		SELECT u.nickname,u.face,w.*
+		FROM weibo AS w LEFT JOIN USER AS u ON(w.user_id=u.user_id)
+		WHERE w.user_id IN (
+			SELECT followid
+			FROM relation AS r
+			WHERE r.user_id=#{params.userId1} AND state=2
+		) OR w.user_id=#{params.userId2} ORDER BY w.post_time DESC
+	</select>
+		
+	<!-- 首页——我关注的 -->
+	<select id="queryAllWeiboFollow" parameterType="int" resultMap="WeiboResultMap">
+		SELECT u.nickname,u.face,w.* 
+		FROM weibo AS w LEFT JOIN USER AS u ON(w.user_id=u.user_id)
+		WHERE w.user_id IN (
+			SELECT followid
+			FROM relation AS r
+			WHERE r.user_id=#{params.userId} AND (state=1 OR state=2)
+		) OR w.user_id=#{params.userId} ORDER BY w.post_time DESC
+	</select>
+	 
+	<!-- 根据微博id查询微博 -->
+	<select id="queryWeiboByWeiboId" parameterType="int" resultMap="WeiboResultMap">
+		SELECT * FROM weibo,USER WHERE weibo.weibo_id=#{weiboId} AND user.user_id=weibo.user_id
+	</select>
+
+	<!-- 根据微博id删除微博 -->
+	<delete id="deleteByWeiboId" parameterType="int" >
+		delete from weibo where weibo_id=#{id}
+	</delete>
+
+
+	<!-- 根据用户id查询微博 附加user昵称 头像 -->
+	<select id="qeuryByUserId" parameterType="Integer" resultMap="WeiboResultMap">
+		SELECT 
+		user.nickname,user.face,weibo.* FROM weibo,USER
+		<where>
+			and weibo.user_id=#{params.userId} and weibo.user_id=user.user_id ORDER BY post_time DESC
+		</where>
+	</select>
+
+	<!-- 转发微博 -->
+	<insert id="repost" parameterType="po.WeiboCustom" keyProperty="weibo_id" useGeneratedKeys="true">
+		insert into weibo (user_id,post_time,content,original,repost_id)
+		value(#{userId},#{postTime},#{content},0,#{repostId})
+	</insert>
+
+	<!-- 发微博 -->
+	<insert id="post" parameterType="po.WeiboVo" keyProperty="weibo_id" useGeneratedKeys="true">
+		insert into weibo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="weiboCustom.userId != null">
+				user_id,
+			</if>
+			<if test="weiboCustom.postTime != null">
+				post_time,
+			</if>
+			<if test="weiboCustom.content != null">
+				content,
+			</if>
+			<if test="weiboCustom.pic1 != null">
+				pic1,
+			</if>
+			<if test="weiboCustom.pic2 != null">
+				pic2,
+			</if>
+			<if test="weiboCustom.pic3 != null">
+				pic3,
+			</if>
+			<if test="weiboCustom.pic4 != null">
+				pic4,
+			</if>
+			<if test="weiboCustom.pic5 != null">
+				pic5,
+			</if>
+			<if test="weiboCustom.pic6 != null">
+				pic6,
+			</if>
+			<if test="weiboCustom.pic7 != null">
+				pic7,
+			</if>
+			<if test="weiboCustom.pic8 != null">
+				pic8,
+			</if>
+			<if test="weiboCustom.pic9 != null">
+				pic9,
+			</if>
+			
+				original,
+
+			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="weiboCustom.userId != null">
+				#{weiboCustom.userId,jdbcType=INTEGER},
+			</if>
+			<if test="weiboCustom.postTime != null">
+				#{weiboCustom.postTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="weiboCustom.content != null">
+				#{weiboCustom.content,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic1 != null">
+				#{weiboCustom.pic1,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic2 != null">
+				#{weiboCustom.pic2,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic3 != null">
+				#{weiboCustom.pic3,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic4 != null">
+				#{weiboCustom.pic4,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic5 != null">
+				#{weiboCustom.pic5,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic6 != null">
+				#{weiboCustom.pic6,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic7 != null">
+				#{weiboCustom.pic7,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic8 != null">
+				#{weiboCustom.pic8,jdbcType=VARCHAR},
+			</if>
+			<if test="weiboCustom.pic9 != null">
+				#{weiboCustom.pic9,jdbcType=VARCHAR},
+			</if>
+			1,
+		</trim>
+	</insert>
+
+	<!-- 查询微博被转发次数 -->
+	<select id="queryRepostCount" parameterType="int" resultType="int">
+		SELECT	COUNT(*)
+		FROM weibo 
+		WHERE repost_id = #{weiboId}
+	</select>
+
+	<!-- 查询微博被评论次数 -->
+	<select id="queryCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM COMMENT
+		WHERE comment.weibo_id=#{weiboId}
+	</select>
+	
+	<!-- 查询微博被回复次数 -->
+	<select id="queryReplyCount" parameterType="int" resultType="int">
+		SELECT	COUNT(*)
+		FROM reply AS r
+		WHERE r.comment_id IN(
+			SELECT comment_id
+			FROM COMMENT
+			WHERE comment.weibo_id=#{weiboId}
+		)
+	</select>
+	
+	<!-- 查询微博被点赞次数 -->
+	<select id="queryLikeCount" parameterType="int" resultType="int">
+		SELECT	COUNT(*)
+		FROM likes
+		WHERE weibo_id = #{weiboId}
+	</select>
+
+	<!-- 根据用户id查询被转发的微博 -->
+	<select id="queryRepostByUserId" parameterType="int" resultMap="WeiboResultMap"> 
+		SELECT u.nickname, u.face, w.*
+		FROM weibo AS w, USER AS u
+		WHERE repost_id IN (
+			SELECT weibo_id 
+			FROM weibo
+			WHERE user_id = #{params.userId}
+		) AND w.user_id = u.user_id ORDER BY w.post_time DESC
+	</select>
+
+	<!-- 根据关键字搜索微博 -->
+	<select id="queryWeiboByWord" parameterType="String" resultMap="WeiboResultMap">
+	SELECT user.nickname,user.face,weibo.* 
+	FROM weibo,USER
+	WHERE weibo.content LIKE '%${params.keyWord}%' AND weibo.user_id=user.user_id ORDER BY post_time DESC
+	</select>
+
+</mapper>
+
+
+
+
+

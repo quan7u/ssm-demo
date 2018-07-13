@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ReplyMapperCustom">
+	<resultMap id="ReplyResultMap" type="po.ReplyCustom">
+		<id column="reply_id" jdbcType="INTEGER" property="replyId" />
+		<result column="comment_id" jdbcType="INTEGER" property="commentId" />
+		<result column="from_id" jdbcType="INTEGER" property="fromId" />
+		<result column="to_id" jdbcType="INTEGER" property="toId" />
+		<result column="reply_content" jdbcType="VARCHAR" property="content" />
+		<result column="time" jdbcType="TIMESTAMP" property="time" />
+		<result column="from" property="from"/>
+		<result column="to" property="to"/>
+		<result column="from_face" property="from_face"/>
+		<result column="to_face" property="to_face"/>
+		
+		<association property="weibo" javaType="po.Weibo">
+			<id column="weibo_id" property="weiboId" jdbcType="INTEGER" />
+			<result column="user_id" property="userId" jdbcType="INTEGER" />
+			<result column="post_time" property="postTime" jdbcType="TIMESTAMP" />
+			<result column="content" property="content" jdbcType="VARCHAR" />
+			<result column="original" property="original" jdbcType="INTEGER" />
+	    	<result column="repost_id" property="repostId" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+
+	<!-- 添加回复 -->
+	<insert id="addReply" parameterType="po.ReplyCustom" keyProperty="reply_id" useGeneratedKeys="true">
+		INSERT INTO reply (comment_id, from_id, to_id, reply_content,tIME) 
+		VALUE(#{commentId},#{fromId},#{toId},#{content},#{time})
+	</insert>
+
+	<!-- 遍历回复 -->
+	<select id="queryReply" parameterType="int" resultMap="ReplyResultMap">
+		SELECT b.nickname AS 'from',c.nickname AS 'to',a.time,a.reply_content,a.comment_id,a.to_id,a.from_id,a.reply_id
+		FROM reply AS a, USER AS b,USER c
+		WHERE a.comment_id=#{commentId} AND a.from_id=b.user_id AND a.to_id=c.user_id
+	</select>
+	
+	<!-- 删除回复 -->
+	<delete id="deleteReplyById" parameterType="int">
+		DELETE FROM reply WHERE reply_id=#{replyId}
+	</delete>
+	
+	<select id="queryReplyByUserId" parameterType="int" resultMap="ReplyResultMap">
+	SELECT u1.face as from_face,u1.nickname as 'from',u2.face as to_face,u2.nickname as 'to',r.reply_content,r.time,w.content,w.weibo_id
+	FROM reply AS r LEFT JOIN COMMENT AS c ON(r.comment_id=c.comment_id) LEFT JOIN weibo AS w ON(c.weibo_id=w.weibo_id),
+	USER AS u1, USER AS u2
+	WHERE u1.user_id=r.from_id AND u2.user_id=r.to_id AND r.to_id=#{params.userId} ORDER BY r.time DESC
+	</select>
+	
+</mapper>

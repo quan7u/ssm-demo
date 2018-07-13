@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.MentionMapperCustom">
+	<resultMap id="MentionRM" type="po.MentionCustom">
+		<id column="mention_id" property="mentionId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="repostCount" property="repostcount" jdbcType="INTEGER" />
+		<result column="commentCount" property="commentcount" jdbcType="INTEGER" />
+		<result column="replyCount" property="replycount" jdbcType="INTEGER" />
+		<result column="likeCount" property="likecount" jdbcType="INTEGER" />
+		<result column="fansCount" property="fanscount" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 读取数据库中与我相关数目 -->
+	<select id="queryLastMention" parameterType="int" resultMap="MentionRM">
+		SELECT * FROM mention WHERE user_id = #{userId}
+	</select>
+
+	<!-- 根据用户id查询所发微博的转发量 -->
+	<select id="queryRepostCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) 
+		FROM weibo
+		WHERE repost_id IN (
+			SELECT weibo_id FROM weibo WHERE user_id = #{userId}
+		)
+	</select>
+
+	<!-- 根据用户id查询所发微博的评论量 -->
+	<select id="queryCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) 
+		FROM COMMENT 
+		WHERE weibo_id IN (
+			SELECT weibo_id FROM weibo WHERE user_id = #{userId}
+		)
+	</select>
+	
+	<!-- 根据用户id查询用户被回复数量 -->
+	<select id="queryReplyCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM reply WHERE to_id = #{userId}
+	</select>
+	
+	<!-- 根据用户id查询用户被赞数量 -->
+	<select id="queryLikeCount" parameterType="int" resultType="int">
+		SELECT	COUNT(*)
+		FROM likes
+		WHERE weibo_id IN (
+			SELECT weibo_id
+			FROM weibo
+			WHERE user_id = #{userId}
+		)
+	</select>
+	
+	<!-- 更新与我相关——微博转发数 -->
+	<update id="updateRepost" parameterType="po.MentionCustom">
+		UPDATE mention AS m
+		SET m.repostCount=#{repostcount}
+		WHERE m.user_id=#{userId}
+	</update>
+	
+	<!-- 更新与我相关——微博评论数 -->
+	<update id="updateComment" parameterType="po.MentionCustom">
+		UPDATE mention AS m
+		SET m.commentCount=#{commentcount}
+		WHERE m.user_id=#{userId}
+	</update>
+
+	<!-- 更新与我相关——微博赞数 -->
+	<update id="updateLikes" parameterType="po.MentionCustom">
+		UPDATE mention AS m
+		SET m.likeCount=#{likecount}
+		WHERE m.user_id=#{userId}
+	</update>
+
+	<!-- 更新与我相关——粉丝数 -->
+	<update id="updateFans" parameterType="po.MentionCustom">
+		UPDATE mention AS m
+		SET m.fansCount=#{fanscount}
+		WHERE m.user_id=#{userId}
+	</update>
+	
+	<!-- 更新与我相关——回复数 -->
+	<update id="updateReply" parameterType="po.MentionCustom">
+		UPDATE mention AS m
+		SET m.replyCount=#{replycount}
+		WHERE m.user_id=#{userId}
+	</update>
+	
+	<!-- 注册生成mention 记录与我相关 -->
+	<insert id="insertMention" parameterType="int">
+		INSERT INTO mention (user_id,repostCount,commentCount, replyCount, likeCount, fansCount) 
+		VALUE(#{userId},0,0,0,0,0)
+	</insert>
+	
+	
+	
+</mapper>

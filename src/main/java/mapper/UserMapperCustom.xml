@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.UserMapperCustom">
+
+	<!-- 属性与字段映射 -->
+	<resultMap id="UserResultMap" type="po.UserCustom">
+		<id column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="face" property="face" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="bir" property="bir" jdbcType="DATE" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		
+		<association property="relation" javaType="po.Relation">
+			<id column="relation_id" property="relationId" jdbcType="INTEGER" />
+			<result column="user_id" property="userId" jdbcType="INTEGER" />
+			<result column="followid" property="followid" jdbcType="INTEGER" />
+			<result column="state" property="state" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+
+	<!-- sql片段 -->
+	<sql id="qeury_user_where">
+		<if test="userCustom!=null">
+			<if test="userCustom.username!=null and userCustom.username!=''">
+				and username='${userCustom.username}'
+			</if>
+		</if>
+		<if test="userCustom!=null">
+			<if test="userCustom.password!=null and userCustom.password!=''">
+				and password='${userCustom.password}'
+			</if>
+		</if>
+	</sql>
+
+	<!-- 修改用户密码 -->
+	<update id="updatePassword" parameterType="po.User">
+		UPDATE USER SET PASSWORD =#{password} WHERE user_id = #{userId}
+	</update>
+
+	<!-- 插入新用户 -->
+	<insert id="insertUser" parameterType="po.User" keyProperty="user_id" useGeneratedKeys="true">
+		INSERT INTO USER (username,PASSWORD,nickname,face,province,city,bir,sex) 
+		VALUE(#{username},#{password},#{username},'default.png','00','00','2018-06-06','1')
+	</insert>
+
+	<!-- 用户名校验 -->
+	<select id="queryByUsername" parameterType="String" resultMap="UserResultMap">
+		SELECT u.* FROM USER AS u WHERE username=#{username}
+	</select>
+
+	<!-- 登录验证 -->
+	<select id="loginVerify" parameterType="po.UserVo" resultMap="UserResultMap">
+		SELECT * FROM USER
+		<where>
+			<include refid="qeury_user_where"></include>
+		</where>
+	</select>
+
+	<!-- 根据用户id查询用户信息 -->
+	<select id="queryInfoByUserId" parameterType="int" resultType="po.UserCustom">
+		SELECT * FROM USER
+		<where>
+			and user.user_id = #{id}
+		</where>
+	</select>
+
+	<!-- 修改用户id为userId的用户信息 -->
+	<update id="updateByUserId" parameterType="po.UserVo">
+		update
+		user
+		set
+		nickname = #{userCustom.nickname},
+		face = #{userCustom.face},
+		sex = #{userCustom.sex},
+		bir = #{userCustom.bir},
+		province =	#{userCustom.province},
+		city = #{userCustom.city}
+		where
+		user_id = #{userCustom.userId}
+	</update>
+
+	<!-- 微博数 -->
+	<select id="queryWeiboCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM weibo
+		WHERE weibo.user_id=#{id}
+	</select>
+
+	<!-- 关注数 -->
+	<select id="queryFollowCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM relation
+		WHERE user_id = #{id}
+	</select>
+
+	<!-- 粉丝数 -->
+	<select id="queryFansCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM relation
+		WHERE followid = #{id}<!-- *******字段需要修改****** -->
+	</select>
+
+	<!-- 省市 -->
+	<select id="queryPC" parameterType="String" resultType="String">
+		SELECT	NAME FROM location WHERE id = #{id}
+	</select>
+	
+	<!-- 查询用户被转发数 -->
+	<select id="queryRepostCount" parameterType="Integer" resultType="int">
+		SELECT COUNT(*)
+		FROM weibo
+		WHERE repost_id IN (
+		SELECT weibo_id 
+		FROM weibo
+		WHERE user_id = #{userId}
+		)
+	</select>
+	
+	<!-- 查询关注列表 -->
+	<select id="queryFollowList" parameterType="int" resultMap="UserResultMap">
+		SELECT b.*, a.state
+		FROM relation AS a, USER AS b
+		WHERE a.user_id=#{userId} AND a.followid=b.user_id
+	</select>
+	
+	<!-- 查询粉丝列表 -->
+	<select id="queryFansList" parameterType="int" resultMap="UserResultMap">
+		SELECT a.*,b.*
+		FROM relation AS a, USER AS b
+		WHERE a.followid=#{userId} AND b.user_id=a.user_id
+	</select>
+	
+	<select id="queryUserByWord" parameterType="String" resultMap="UserResultMap">
+		SELECT * FROM USER WHERE user.nickname LIKE '%${_parameter}%'
+	</select>
+	
+	
+	
+</mapper>

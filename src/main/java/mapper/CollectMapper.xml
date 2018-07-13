@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.CollectMapper" >
+  <resultMap id="BaseResultMap" type="po.Collect" >
+    <id column="collect_id" property="collectId" jdbcType="INTEGER" />
+    <result column="weibo_id" property="weiboId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="collect_time" property="collectTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    collect_id, weibo_id, user_id, collect_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="po.CollectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from collect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from collect
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from collect
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="po.CollectExample" >
+    delete from collect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="po.Collect" >
+    insert into collect (collect_id, weibo_id, user_id, 
+      collect_time)
+    values (#{collectId,jdbcType=INTEGER}, #{weiboId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{collectTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="po.Collect" >
+    insert into collect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectId != null" >
+        collect_id,
+      </if>
+      <if test="weiboId != null" >
+        weibo_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="collectTime != null" >
+        collect_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectId != null" >
+        #{collectId,jdbcType=INTEGER},
+      </if>
+      <if test="weiboId != null" >
+        #{weiboId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="collectTime != null" >
+        #{collectTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="po.CollectExample" resultType="java.lang.Integer" >
+    select count(*) from collect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update collect
+    <set >
+      <if test="record.collectId != null" >
+        collect_id = #{record.collectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.weiboId != null" >
+        weibo_id = #{record.weiboId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.collectTime != null" >
+        collect_time = #{record.collectTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update collect
+    set collect_id = #{record.collectId,jdbcType=INTEGER},
+      weibo_id = #{record.weiboId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      collect_time = #{record.collectTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="po.Collect" >
+    update collect
+    <set >
+      <if test="weiboId != null" >
+        weibo_id = #{weiboId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="collectTime != null" >
+        collect_time = #{collectTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="po.Collect" >
+    update collect
+    set weibo_id = #{weiboId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      collect_time = #{collectTime,jdbcType=TIMESTAMP}
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </update>
+</mapper>

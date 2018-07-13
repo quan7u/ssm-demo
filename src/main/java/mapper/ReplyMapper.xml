@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ReplyMapper">
+  <resultMap id="BaseResultMap" type="po.Reply">
+    <id column="reply_id" jdbcType="INTEGER" property="replyId" />
+    <result column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="from_id" jdbcType="INTEGER" property="fromId" />
+    <result column="to_id" jdbcType="INTEGER" property="toId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    reply_id, comment_id, from_id, to_id, content, time
+  </sql>
+  <select id="selectByExample" parameterType="po.ReplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reply
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from reply
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="po.ReplyExample">
+    delete from reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="po.Reply">
+    insert into reply (reply_id, comment_id, from_id, 
+      to_id, content, time
+      )
+    values (#{replyId,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, #{fromId,jdbcType=INTEGER}, 
+      #{toId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="po.Reply">
+    insert into reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="replyId != null">
+        reply_id,
+      </if>
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="fromId != null">
+        from_id,
+      </if>
+      <if test="toId != null">
+        to_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="replyId != null">
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="commentId != null">
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="fromId != null">
+        #{fromId,jdbcType=INTEGER},
+      </if>
+      <if test="toId != null">
+        #{toId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="po.ReplyExample" resultType="java.lang.Integer">
+    select count(*) from reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update reply
+    <set>
+      <if test="record.replyId != null">
+        reply_id = #{record.replyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentId != null">
+        comment_id = #{record.commentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromId != null">
+        from_id = #{record.fromId,jdbcType=INTEGER},
+      </if>
+      <if test="record.toId != null">
+        to_id = #{record.toId,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update reply
+    set reply_id = #{record.replyId,jdbcType=INTEGER},
+      comment_id = #{record.commentId,jdbcType=INTEGER},
+      from_id = #{record.fromId,jdbcType=INTEGER},
+      to_id = #{record.toId,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="po.Reply">
+    update reply
+    <set>
+      <if test="commentId != null">
+        comment_id = #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="fromId != null">
+        from_id = #{fromId,jdbcType=INTEGER},
+      </if>
+      <if test="toId != null">
+        to_id = #{toId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="po.Reply">
+    update reply
+    set comment_id = #{commentId,jdbcType=INTEGER},
+      from_id = #{fromId,jdbcType=INTEGER},
+      to_id = #{toId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+</mapper>

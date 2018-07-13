@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.RelationMapperCustom">
+	<resultMap id="BaseResultMap" type="po.Relation">
+		<id column="relation_id" property="relationId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="followid" property="followid" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 判断相互关注 -->
+	<select id="queryMutual" parameterType="po.Relation" resultType="po.Relation">
+		SELECT * FROM relation WHERE (user_id=#{userId} AND followid=#{followid} AND state=2) OR (user_id=#{followid} AND followid=#{userId} AND state=2)
+	</select>
+
+	<!-- 判断单方关注 -->
+	<select id="queryUnilateral" parameterType="po.Relation" resultType="po.Relation">
+		SELECT * FROM relation WHERE user_id=#{userId} AND followid=#{followid} AND state=1
+	</select>
+	
+	<!-- 关注 -->
+	<insert id="Follow" parameterType="po.Relation" keyProperty="relation_id" useGeneratedKeys="true">
+		INSERT INTO relation (user_id,followid,state) VALUE(#{userId},#{followid},#{state})
+	</insert>
+	
+	<!-- 改变关注状态 -->
+	<update id="Status" parameterType="po.Relation">
+		UPDATE relation SET state=#{state} WHERE user_id=#{userId} AND followid=#{followid}
+	</update>
+	
+	<!-- 取关 -->
+	<delete id="UnFollow" parameterType="po.Relation">
+		DELETE FROM relation WHERE user_id=#{userId} AND followid=#{followid}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.CollectMapperCustom">
+	<resultMap id="CollectResultMap" type="po.CollectCustom">
+		<id column="collect_id" property="collectId" jdbcType="INTEGER" />
+		<result column="weibo_id" property="weiboId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="collect_time" property="collectTime" jdbcType="TIMESTAMP" />
+		<result column="weibo_nickname" property="weibo_nickname" jdbcType="TIMESTAMP" />
+		<result column="weibo_face" property="weibo_face" jdbcType="TIMESTAMP" />
+		
+		<association property="user" javaType="po.UserCustom">
+			<id column="user_id" property="userId" jdbcType="INTEGER" />
+			<result column="username" property="username" jdbcType="VARCHAR" />
+			<result column="password" property="password" jdbcType="VARCHAR" />
+			<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+			<result column="face" property="face" jdbcType="VARCHAR" />
+			<result column="sex" property="sex" jdbcType="INTEGER" />
+			<result column="bir" property="bir" jdbcType="DATE" />
+			<result column="province" property="province" jdbcType="VARCHAR" />
+			<result column="city" property="city" jdbcType="VARCHAR" />
+		</association>
+		<association property="weibo" javaType="po.WeiboCustom">
+			<id column="weibo_id" property="weiboId" jdbcType="INTEGER" />
+			<result column="user_id" property="userId" jdbcType="INTEGER" />
+			<result column="post_time" property="postTime" jdbcType="TIMESTAMP" />
+			<result column="content" property="content" jdbcType="VARCHAR" />
+			<result column="pic1" property="pic1" jdbcType="VARCHAR" />
+			<result column="pic2" property="pic2" jdbcType="VARCHAR" />
+			<result column="pic3" property="pic3" jdbcType="VARCHAR" />
+			<result column="pic4" property="pic4" jdbcType="VARCHAR" />
+			<result column="pic5" property="pic5" jdbcType="VARCHAR" />
+			<result column="pic6" property="pic6" jdbcType="VARCHAR" />
+			<result column="pic7" property="pic7" jdbcType="VARCHAR" />
+			<result column="pic8" property="pic8" jdbcType="VARCHAR" />
+			<result column="pic9" property="pic9" jdbcType="VARCHAR" />
+			<result column="original" property="original" jdbcType="INTEGER" />
+			<result column="repost_id" property="repostId" jdbcType="INTEGER" />
+		</association>
+		
+	</resultMap>
+
+	<!-- 收藏 -->
+	<insert id="collect" parameterType="po.CollectCustom">
+		INSERT INTO collect (weibo_id,user_id,collect_time) VALUE(#{weiboId}, #{userId}, #{collectTime})
+	</insert>
+	
+	<!-- 取消收藏 -->
+	<delete id="uncollect" parameterType="po.CollectCustom">
+		DELETE FROM collect WHERE weibo_id=#{weiboId} AND user_id=#{userId}
+	</delete>
+	
+	<!-- 用户是否收藏微博 -->
+	<select id="isCollect" parameterType="po.CollectCustom" resultType="po.CollectCustom">
+		SELECT * FROM collect WHERE weibo_id=#{weiboId} AND user_id=#{userId}
+	</select>
+	
+	<!-- 查询我的收藏列表 -->
+	<select id="queryMyCollection" parameterType="int" resultMap="CollectResultMap">
+	SELECT c.collect_time,u.face,wu.face AS weibo_face,wu.nickname AS weibo_nickname,w.*
+	FROM collect AS c LEFT JOIN weibo AS w ON(c.weibo_id=w.weibo_id), USER AS u, USER AS wu
+	WHERE c.user_id=u.user_id AND c.weibo_id IN(
+		SELECT w.weibo_id
+		FROM weibo AS w
+		WHERE c.user_id= #{params.userId}
+	) AND wu.user_id=w.user_id ORDER BY c.collect_time DESC
+	</select>
+
+</mapper>
