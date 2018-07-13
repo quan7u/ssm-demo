@@ -62,9 +62,9 @@ git clone https://github.com/yrucrew/ssm-demo.git
 
 把图片上传到web项目目录外
 
-![配置虚拟路径保存上传图片](F:\Default\weibo\readme-img\配置虚拟路径保存上传图片.png)
+![配置虚拟路径保存上传图片](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E8%B7%AF%E5%BE%84%E4%BF%9D%E5%AD%98%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87.png?raw=true)
 
-![Tomcat配置](F:\Default\weibo\readme-img\Tomcat配置.png)
+![Tomcat配置](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/Tomcat%E9%85%8D%E7%BD%AE.png?raw=true)
 
 ##### 5 （可选）把默认头像放到作为存储上传图片的目录下
 
@@ -86,30 +86,30 @@ Ps：你的数据库是没有其他数据的 自行注册吧
 
 ### 登录页
 
-![登录页](F:\Default\weibo\readme-img\登录页.png)
+![登录页](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E7%99%BB%E5%BD%95%E9%A1%B5.png?raw=true)
 
 ### 首页
 
-![首页](F:\Default\weibo\readme-img\首页.png)
+![首页](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E9%A6%96%E9%A1%B5.png?raw=true)
 
 ### 消息提醒
 
-![消息提醒](F:\Default\weibo\readme-img\消息提醒.png)
+![消息提醒](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E6%B6%88%E6%81%AF%E6%8F%90%E9%86%92.png?raw=true)
 
 ### 收到的赞
 
-![收到的赞](F:\Default\weibo\readme-img\收到的赞.png)
+![收到的赞](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E6%94%B6%E5%88%B0%E7%9A%84%E8%B5%9E.png?raw=true)
 
 ### 评论
 
-![回复测试](F:\Default\weibo\readme-img\回复测试.png)
+![回复测试](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E5%9B%9E%E5%A4%8D%E6%B5%8B%E8%AF%95.png?raw=true)
 
 ### 后台
 
 （只做了个公告哈哈，CRUD不想写啊啊啊啊
 
-![后台](F:\Default\weibo\readme-img\后台.png)
+![后台](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E5%90%8E%E5%8F%B0.png?raw=true)
 
 ### 公告功能
 
-![公告功能](F:\Default\weibo\readme-img\公告功能.png)
+![公告功能](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E5%85%AC%E5%91%8A%E5%8A%9F%E8%83%BD.png?raw=true)
