@@ -23,7 +23,7 @@
 		<div class="row">
 			<div class="leftbox" style="margin: 40px">
 				<!-- 头像 -->
-				<img src="/userface/${user.face}" height="150px" width="150px"
+				<img src="/imgUpload/${user.face}" height="150px" width="150px"
 					class="img-circle" align="center">
 			</div>
 			<div class="rightbox">
@@ -93,7 +93,7 @@
 						<div
 							style="cursor: pointer; height: 50px; width: 50px; float: left;">
 							<img onclick="javascript:ClickUser(${follower.userId});"
-								src="/userface/${follower.face }" height="100px" width="100px"
+								src="/imgUpload/${follower.face }" height="100px" width="100px"
 								class="img-circle" align="center">
 						</div>
 					</div>

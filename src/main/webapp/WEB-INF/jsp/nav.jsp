@@ -11,7 +11,7 @@
 		var url = "${pageContext.request.contextPath }/queryWeiboByWord.action?pageNo=1&keyWord="
 				+ keyWord;
 		if (keyWord == "") {
-			alert("什么都没有 找个鸡儿");
+			alert("什么都没有 想要找什么呢？！");
 		} else {
 			window.location = url;
 		}

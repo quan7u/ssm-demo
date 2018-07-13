@@ -40,7 +40,7 @@
 				<label class="col-sm-4 control-label" style="margin-top: 15px">头像</label>
 				<div class="col-sm-3">
 					<!-- 头像框 -->
-					<img src="/userface/${user.face}" name="face" class="img-circle"
+					<img src="/imgUpload/${user.face}" name="face" class="img-circle"
 						height="70" width="70" style="margin-left: 25px"> <br>
 					<br>
 					<!-- 上传框 -->

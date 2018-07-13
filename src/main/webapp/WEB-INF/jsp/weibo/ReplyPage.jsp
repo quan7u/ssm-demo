@@ -73,7 +73,7 @@
 		<!-- 右侧个人简单信息 -->
 		<div style="width: 20%; float: right;">
 			<!-- 头像 -->
-			<img src="/userface/${user.face}" height="100px " width="100px "
+			<img src="/imgUpload/${user.face}" height="100px " width="100px "
 				class="img-circle " align="center">
 			<!-- 昵称 -->
 			<br> <span style="font-size: 20px;">${user.nickname}&nbsp;&nbsp;</span>
@@ -108,12 +108,12 @@
 						style="cursor: pointer; height: 50px; width: 50px; margin: 10px; float: left;">
 						<c:if test="${reply.fromId==user.userId}">
 							<img onclick="javascript:clickme();"
-								src="/userface/${reply.from_face}" width="50px" height="50px"
+								src="/imgUpload/${reply.from_face}" width="50px" height="50px"
 								class="img-circle">
 						</c:if>
 						<c:if test="${reply.fromId!=user.userId}">
 							<img onclick="javascript:clickother(${comment.user.userId});"
-								src="/userface/${reply.from_face}" width="50px" height="50px"
+								src="/imgUpload/${reply.from_face}" width="50px" height="50px"
 								class="img-circle">
 						</c:if>
 					</div>

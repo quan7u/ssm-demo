@@ -79,7 +79,7 @@
 		<div
 			style="width: 20%; float: right; background-color: #fff; height: 220px;">
 			<!-- 头像 -->
-			<img src="/userface/${user.face}" style="margin-top: 10px;"
+			<img src="/imgUpload/${user.face}" style="margin-top: 10px;"
 				height="90px " width="90px" class="img-circle " align="center">
 			<!-- 昵称 -->
 			<br> <span style="font-size: 20px;">${user.nickname}&nbsp;&nbsp;</span>
@@ -130,13 +130,13 @@
 							style="cursor: pointer; height: 50px; width: 50px; margin: 10px; float: left;">
 							<c:if test="${collection.weibo.userId==user.userId}">
 								<img onclick="javascript:clickme();"
-									src="/userface/${collection.user.face}" width="50px"
+									src="/imgUpload/${collection.user.face}" width="50px"
 									height="50px" class="img-circle">
 							</c:if>
 							<c:if test="${collection.weibo.userId!=user.userId}">
 								<img
 									onclick="javascript:clickother(${collection.weibo.userId});"
-									src="/userface/${collection.weibo_face}" width="50px"
+									src="/imgUpload/${collection.weibo_face}" width="50px"
 									height="50px" class="img-circle">
 							</c:if>
 						</div>
@@ -166,43 +166,43 @@
 								<table>
 									<tr>
 										<c:if test="${collection.weibo.pic1!=null }">
-											<td><img src="/userface/${collection.weibo.pic1 }"
+											<td><img src="/imgUpload/${collection.weibo.pic1 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.pic2!=null }">
-											<td><img src="/userface/${collection.weibo.pic2 }"
+											<td><img src="/imgUpload/${collection.weibo.pic2 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.pic3!=null }">
-											<td><img src="/userface/${collection.weibo.pic3 }"
+											<td><img src="/imgUpload/${collection.weibo.pic3 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 									</tr>
 									<tr>
 										<c:if test="${collection.weibo.pic4!=null }">
-											<td><img src="/userface/${collection.weibo.pic4 }"
+											<td><img src="/imgUpload/${collection.weibo.pic4 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.pic5!=null }">
-											<td><img src="/userface/${collection.weibo.pic5 }"
+											<td><img src="/imgUpload/${collection.weibo.pic5 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.pic6!=null }">
-											<td><img src="/userface/${collection.weibo.pic6 }"
+											<td><img src="/imgUpload/${collection.weibo.pic6 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 									</tr>
 									<tr>
 										<c:if test="${collection.weibo.pic7!=null }">
-											<td><img src="/userface/${collection.weibo.pic7 }"
+											<td><img src="/imgUpload/${collection.weibo.pic7 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.pic8!=null }">
-											<td><img src="/userface/${collection.weibo.pic8 }"
+											<td><img src="/imgUpload/${collection.weibo.pic8 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.pic9!=null }">
-											<td><img src="/userface/${collection.weibo.pic9 }"
+											<td><img src="/imgUpload/${collection.weibo.pic9 }"
 												style="width: 130px; height: 130px"></td>
 										</c:if>
 									</tr>
@@ -221,7 +221,7 @@
 								style="cursor: pointer; height: 30px; width: 30px; margin: 10px; float: left; margin-left: 100px;">
 								<img
 									onclick="javascript:clickother(${collection.weibo.repost.user.userId});"
-									src="/userface/${collection.weibo.repost.user.face}"
+									src="/imgUpload/${collection.weibo.repost.user.face}"
 									width="40px" height="40px" class="img-circle">
 							</div>
 							<!-- 昵称+日期 -->
@@ -245,51 +245,51 @@
 									<tr>
 										<c:if test="${collection.weibo.repost.pic1!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic1 }"
+												src="/imgUpload/${collection.weibo.repost.pic1 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.repost.pic2!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic2 }"
+												src="/imgUpload/${collection.weibo.repost.pic2 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.repost.pic3!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic3 }"
+												src="/imgUpload/${collection.weibo.repost.pic3 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 									</tr>
 									<tr>
 										<c:if test="${collection.weibo.repost.pic4!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic4 }"
+												src="/imgUpload/${collection.weibo.repost.pic4 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.repost.pic5!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic5 }"
+												src="/imgUpload/${collection.weibo.repost.pic5 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.repost.pic6!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic6 }"
+												src="/imgUpload/${collection.weibo.repost.pic6 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 									</tr>
 									<tr>
 										<c:if test="${collection.weibo.repost.pic7!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic7 }"
+												src="/imgUpload/${collection.weibo.repost.pic7 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.repost.pic8!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic8 }"
+												src="/imgUpload/${collection.weibo.repost.pic8 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 										<c:if test="${collection.weibo.repost.pic9!=null }">
 											<td><img
-												src="/userface/${collection.weibo.repost.pic9 }"
+												src="/imgUpload/${collection.weibo.repost.pic9 }"
 												style="width: 90px; height: 90px"></td>
 										</c:if>
 									</tr>

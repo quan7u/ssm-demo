@@ -27,7 +27,7 @@
 		<div class="row">
 			<div class="leftbox" style="margin: 40px">
 				<!-- 头像 -->
-				<img src="/userface/${user.face}" height="150px" width="150px"
+				<img src="/imgUpload/${user.face}" height="150px" width="150px"
 					class="img-circle" align="center">
 			</div>
 			<div class="rightbox">
@@ -97,7 +97,7 @@
 						<div
 							style="cursor: pointer; float: left;">
 							<img onclick="javascript:ClickUser(${fans.userId});"
-								src="/userface/${fans.face }" height="80px" width="80px"
+								src="/imgUpload/${fans.face }" height="80px" width="80px"
 								class="img-circle" align="center">
 						</div>
 					</div>

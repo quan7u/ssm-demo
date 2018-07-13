@@ -65,7 +65,7 @@
 		<!-- 右侧个人简单信息 -->
 		<div style="width: 20%; float: right;">
 			<!-- 头像 -->
-			<img src="/userface/${user.face}" height="100px " width="100px "
+			<img src="/imgUpload/${user.face}" height="100px " width="100px "
 				class="img-circle " align="center">
 			<!-- 昵称 -->
 			<br> <span style="font-size: 20px;">${user.nickname}&nbsp;&nbsp;</span>
@@ -99,10 +99,10 @@
 						<!-- 头像 -->
 						<div style="cursor: pointer; height: 50px; width: 50px; margin: 10px; float: left;">
 						<c:if test="${weibo.user.userId==user.userId}">
-<img onclick="javascript:clickme();" src="/userface/${weibo.user.face}" width="50px" height="50px" class="img-circle">
+<img onclick="javascript:clickme();" src="/imgUpload/${weibo.user.face}" width="50px" height="50px" class="img-circle">
 						</c:if>
 						<c:if test="${weibo.user.userId!=user.userId}">
-<img onclick="javascript:clickother(${weibo.user.userId});" src="/userface/${weibo.user.face}" width="50px" height="50px" class="img-circle">
+<img onclick="javascript:clickother(${weibo.user.userId});" src="/imgUpload/${weibo.user.face}" width="50px" height="50px" class="img-circle">
 						</c:if>
 						</div>
 						<!-- 昵称+日期 -->
@@ -125,10 +125,10 @@
 	<div style="cursor: pointer; height: 30px; width: 30px;	margin: 10px; float: left; margin-left: 100px;">
 		
 		<c:if test="${weibo.repost.user.userId==user.userId }">
-<img onclick="javascript:clickme();" src="/userface/${weibo.repost.user.face}" width="40px" height="40px" class="img-circle">
+<img onclick="javascript:clickme();" src="/imgUpload/${weibo.repost.user.face}" width="40px" height="40px" class="img-circle">
 		</c:if>
 		<c:if test="${weibo.repost.user.userId!=user.userId }">
-<img onclick="javascript:clickother(${weibo.repost.user.userId});" src="/userface/${weibo.repost.user.face}" width="40px" height="40px" class="img-circle">
+<img onclick="javascript:clickother(${weibo.repost.user.userId});" src="/imgUpload/${weibo.repost.user.face}" width="40px" height="40px" class="img-circle">
 		</c:if>
 	</div>
 	<!-- 昵称+日期 -->
@@ -149,43 +149,43 @@
 		<table>
 			<tr>
 				<c:if test="${weibo.repost.pic1!=null }">
-					<td><img src="/userface/${weibo.repost.pic1 }"
+					<td><img src="/imgUpload/${weibo.repost.pic1 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 				<c:if test="${weibo.repost.pic2!=null }">
-					<td><img src="/userface/${weibo.repost.pic2 }"
+					<td><img src="/imgUpload/${weibo.repost.pic2 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 				<c:if test="${weibo.repost.pic3!=null }">
-					<td><img src="/userface/${weibo.repost.pic3 }"
+					<td><img src="/imgUpload/${weibo.repost.pic3 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 			</tr>
 			<tr>
 				<c:if test="${weibo.repost.pic4!=null }">
-					<td><img src="/userface/${weibo.repost.pic4 }"
+					<td><img src="/imgUpload/${weibo.repost.pic4 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 				<c:if test="${weibo.repost.pic5!=null }">
-					<td><img src="/userface/${weibo.repost.pic5 }"
+					<td><img src="/imgUpload/${weibo.repost.pic5 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 				<c:if test="${weibo.repost.pic6!=null }">
-					<td><img src="/userface/${weibo.repost.pic6 }"
+					<td><img src="/imgUpload/${weibo.repost.pic6 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 			</tr>
 			<tr>
 				<c:if test="${weibo.repost.pic7!=null }">
-					<td><img src="/userface/${weibo.repost.pic7 }"
+					<td><img src="/imgUpload/${weibo.repost.pic7 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 				<c:if test="${weibo.repost.pic8!=null }">
-					<td><img src="/userface/${weibo.repost.pic8 }"
+					<td><img src="/imgUpload/${weibo.repost.pic8 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 				<c:if test="${weibo.repost.pic9!=null }">
-					<td><img src="/userface/${weibo.repost.pic9 }"
+					<td><img src="/imgUpload/${weibo.repost.pic9 }"
 						style="width: 90px; height: 90px"></td>
 				</c:if>
 			</tr>

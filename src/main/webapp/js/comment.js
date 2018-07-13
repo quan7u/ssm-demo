@@ -13,7 +13,7 @@ function loadComment(weiboId){
                 '<div class="comment-show-con-img pull-left ">' +
                 //头像
                 '<img class="img-circle " style="height: 50px; width: 50px;"' +
-                'src="/userface/'+ data[i].user.face + '"></div>' +
+                'src="/imgUpload/'+ data[i].user.face + '"></div>' +
                 '<div class="comment-show-con-list pull-left clearfix ">' +
                 '<div class="pl-text clearfix ">' +
                 //昵称
@@ -88,7 +88,7 @@ $('.commentAll').on('click', '.plBtn', function() {
     oHtml = '<div class="comment-show-con clearfix">' +
             '<div class="comment-show-con-img pull-left">' +
             //本用户 头像
-            '<img class="img-circle " style="height: 50px; width: 50px;" src="/userface/' + face + '" alt=""></div>' +
+            '<img class="img-circle " style="height: 50px; width: 50px;" src="/imgUpload/' + face + '" alt=""></div>' +
             '<div class="comment-show-con-list pull-left clearfix">' +
             '<div class="pl-text clearfix">' +
             // 本用户 昵称
