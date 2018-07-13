@@ -2,6 +2,8 @@
 
 # 基于ssm的仿微博系统
 
+[![Build Status](https://travis-ci.org/yrucrew/ssm-demo.svg?branch=master)](https://travis-ci.org/yrucrew/ssm-demo)![版本号](https://img.shields.io/badge/version-0.8-red.svg)[![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/yrucrew/ssm-demo/blob/master/LICENSE)
+
 ## 项目简介
 
 这是我的第一个ssm项目，做了快有一个半月，本着做一个大作业顺便熟悉框架顺便找实习的小项目....的想法
@@ -82,7 +84,7 @@ git clone https://github.com/yrucrew/ssm-demo.git
 
 Ps：你的数据库是没有其他数据的 自行注册吧
 
-## 实例
+## 示例
 
 ### 登录页
 
