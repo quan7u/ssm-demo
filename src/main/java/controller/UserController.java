@@ -222,7 +222,7 @@ public class UserController {
 		if (user_face != null && originalFilename != null && originalFilename.length() > 0) {
 
 			// 存储图片的物理路径
-			String pic_path = "F:\\upload\\userface\\";
+			String pic_path = "F:\\imgUpload\\";
 
 			// 新的图片名称
 			String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
