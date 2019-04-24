@@ -63,6 +63,10 @@ git clone https://github.com/yrucrew/ssm-demo.git
 
 ##### 4 在Tomcat中配置虚拟路径
 
+# **注意** Document base 必须与 上传相关代码
+
+# 「存储图片的物理路径」String pic_path一致
+
 把图片上传到web项目目录外
 
 ![配置虚拟路径保存上传图片](https://github.com/yrucrew/ssm-demo/blob/master/readme-img/%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E8%B7%AF%E5%BE%84%E4%BF%9D%E5%AD%98%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87.png?raw=true)
