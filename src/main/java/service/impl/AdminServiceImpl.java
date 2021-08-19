@@ -2,6 +2,7 @@ package service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +10,7 @@ import mapper.AdminMapperCustom;
 import po.Admin;
 import service.AdminService;
 
+@Service
 @Transactional
 public class AdminServiceImpl implements AdminService{
 
