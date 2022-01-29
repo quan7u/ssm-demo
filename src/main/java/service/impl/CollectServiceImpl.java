@@ -2,6 +2,7 @@ package service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import po.Page;
 import service.CollectService;
 import utils.DateConvert;
 
+@Service
 @Transactional
 public class CollectServiceImpl implements CollectService {
 

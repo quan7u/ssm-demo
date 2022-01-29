@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import mapper.LikesMapperCustom;
 import po.LikesCustom;
@@ -13,6 +14,7 @@ import po.WeiboCustom;
 import service.LikesService;
 import utils.DateConvert;
 
+@Service
 @Transactional
 public class LikesServiceImpl implements LikesService {
 

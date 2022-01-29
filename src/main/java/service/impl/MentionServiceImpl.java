@@ -1,5 +1,6 @@
 package service.impl;
 
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,6 +9,7 @@ import mapper.UserMapperCustom;
 import po.MentionCustom;
 import service.MentionService;
 
+@Service
 @Transactional
 public class MentionServiceImpl implements MentionService {
 

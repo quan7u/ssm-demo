@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import po.UserCustom;
 import po.UserVo;
 import service.UserService;
 
+@Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
